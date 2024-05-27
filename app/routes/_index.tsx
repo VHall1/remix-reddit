@@ -1,5 +1,7 @@
 import { Link, useLoaderData } from "@remix-run/react";
+import { PlusCircleIcon } from "lucide-react";
 import { Shell } from "~/components/shell";
+import { Button } from "~/components/ui/button";
 import { Card, CardContent, CardHeader } from "~/components/ui/card";
 import { db } from "~/services/database.server";
 import { timeSince } from "~/utils/time";
@@ -8,15 +10,23 @@ export default function Index() {
   const { posts } = useLoaderData<typeof loader>();
 
   return (
-    <Shell className="bg-accent pt-2 pb-6">
+    <Shell className="pt-2 pb-6">
       <div className="container max-w-screen-lg">
         <div
-          className="h-32 w-full rounded-lg bg-center bg-cover mb-4 border"
+          className="h-32 w-full rounded-lg bg-center bg-cover mb-2 border"
           style={{
             backgroundImage:
               "url('https://styles.redditmedia.com/t5_2savw/styles/bannerBackgroundImage_3e4vaale0qg41.jpg?format=pjpg&s=11eed5d0d926f002858a845d40cddc6609c8e2fc')",
           }}
         />
+        <div className="flex mb-4">
+          <Button className="ml-auto" variant="outline" asChild>
+            <Link to="/posts/new">
+              <PlusCircleIcon className="w-4 h-4 mr-1.5" />
+              Create a post
+            </Link>
+          </Button>
+        </div>
         <div className="grid gap-4">
           {posts.map((post) => (
             <Card key={`post-${post.id}`}>
