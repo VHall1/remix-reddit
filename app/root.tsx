@@ -6,11 +6,18 @@ import {
   Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
+import { serverOnly$ } from "vite-env-only/macros";
+import { createSessionMiddleware } from "~/middleware/session";
+import { sessionStorage } from "~/services/session.server";
 import stylesheet from "~/styles/tailwind.css?url";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
 ];
+
+export const middlaware = serverOnly$([
+  createSessionMiddleware(sessionStorage),
+]);
 
 export function Layout({ children }: { children: React.ReactNode }) {
   return (
